@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Updental Academy — Live Dental Webinars, Every Sunday</title>
+<meta name="description" content="Updental Academy runs live dental education webinars every Sunday. Uplift your clinical skill, upgrade your practice.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+:root{
+  --ink:#10151f; --ink-soft:#4a5164; --paper:#f7f8f4; --paper-deep:#eff1e9;
+  --green:#1e9e4e; --green-deep:#14713a; --blue:#2a4693; --blue-deep:#1d3269;
+  --mint:#e7f5ec; --sky:#eaeff8; --line:rgba(16,21,31,0.12); --line-soft:rgba(16,21,31,0.07);
+  --shadow:0 20px 50px -20px rgba(16,21,31,0.25); --ease:cubic-bezier(.16,.84,.44,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--green);color:#fff;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep);display:flex;align-items:center;gap:10px;font-weight:500;}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--green);}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;line-height:1.05;letter-spacing:-.01em;}
+.reveal{opacity:0;transform:translateY(28px);}
+.view{display:none;}
+.view.is-active{display:block;}
+
+/* logo mark (inline SVG so the file is fully standalone, no external image needed) */
+.logo-mark{display:inline-flex;flex-shrink:0;}
+.logo-mark svg{display:block;}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;padding:14px 26px;border-radius:100px;border:1px solid transparent;cursor:pointer;position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s var(--ease);white-space:nowrap;}
+.btn span{position:relative;z-index:2;}
+.btn-solid{background:var(--ink);color:#fff;}
+.btn-solid::before{content:"";position:absolute;inset:0;background:var(--green);transform:translateY(101%);transition:transform .4s var(--ease);z-index:1;}
+.btn-solid:hover::before{transform:translateY(0);}
+.btn-solid:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(30,158,78,.5);}
+.btn-outline{background:transparent;border-color:var(--line);color:var(--ink);}
+.btn-outline:hover{border-color:var(--ink);transform:translateY(-2px);}
+.btn-wa{background:#1e9e4e;color:#fff;}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(30,158,78,.55);}
+.btn-block{width:100%;}
+.btn-sm{padding:10px 18px;font-size:13.5px;}
+
+/* NAV */
+header{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:background .4s var(--ease),box-shadow .4s var(--ease),padding .4s var(--ease);}
+header.scrolled{background:rgba(247,248,244,.86);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);padding:12px 0;}
+nav{display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:600;font-size:19px;cursor:pointer;}
+.navlinks{display:flex;align-items:center;gap:34px;font-size:14.5px;font-weight:500;}
+.navlinks a{position:relative;color:var(--ink-soft);transition:color .25s;cursor:pointer;}
+.navlinks a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1.5px;background:var(--green);transition:width .3s var(--ease);}
+.navlinks a:hover{color:var(--ink);}
+.navlinks a:hover::after{width:100%;}
+.navcta{display:flex;align-items:center;gap:14px;}
+.menu-btn{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+.menu-btn span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;transition:.3s;}
+.back-nav{font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:6px;color:var(--ink-soft);transition:color .25s;cursor:pointer;}
+.back-nav:hover{color:var(--ink);}
+.back-nav svg{width:13px;height:13px;}
+
+/* HERO (home) */
+.hero{position:relative;padding:172px 0 120px;overflow:hidden;}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;}
+.hero h1{font-size:clamp(38px,5.4vw,68px);margin:22px 0 22px;}
+.hero h1 em{font-style:italic;color:var(--green-deep);}
+.hero p.lede{font-size:18px;color:var(--ink-soft);max-width:480px;line-height:1.6;margin-bottom:34px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:46px;}
+.hero-stats{display:flex;gap:36px;flex-wrap:wrap;}
+.hero-stats div{border-left:2px solid var(--line);padding-left:14px;}
+.stat-num{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--blue-deep);}
+.stat-label{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);letter-spacing:.03em;}
+
+.hero-art{position:relative;display:flex;align-items:center;justify-content:center;}
+.motif-wrap{position:relative;width:100%;max-width:420px;aspect-ratio:1/1.05;}
+.motif-wrap svg{width:100%;height:100%;overflow:visible;}
+.motif-path{fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.motif-tooth{stroke:var(--blue);stroke-width:14;}
+.motif-arrow{stroke:var(--green);stroke-width:14;}
+.motif-ring{position:absolute;inset:-8%;border:1.5px dashed var(--line);border-radius:50%;animation:spin 40s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.motif-badge{position:absolute;bottom:6%;right:-6%;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 16px;box-shadow:var(--shadow);font-family:'IBM Plex Mono',monospace;font-size:12px;display:flex;align-items:center;gap:8px;}
+.motif-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+.sunday-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ink);overflow:hidden;padding:16px 0;}
+.sunday-track{display:flex;gap:48px;white-space:nowrap;width:max-content;animation:ticker 26s linear infinite;}
+.sunday-track span{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#f7f8f4;letter-spacing:.08em;opacity:.75;text-transform:uppercase;}
+.sunday-track span b{color:var(--green);opacity:1;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+section{position:relative;}
+.section-pad{padding:110px 0;}
+.section-head{max-width:640px;margin-bottom:56px;}
+.section-head h2{font-size:clamp(30px,3.6vw,44px);margin-top:16px;}
+.section-head p{color:var(--ink-soft);font-size:16.5px;margin-top:16px;line-height:1.65;}
+
+.about{background:var(--mint);}
+.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:start;}
+.about-card{background:#fff;border-radius:22px;padding:34px;border:1px solid var(--line-soft);box-shadow:var(--shadow);}
+.about-card h3{font-size:20px;margin-bottom:10px;}
+.about-card p{color:var(--ink-soft);font-size:14.5px;line-height:1.6;}
+.pillar-list{display:flex;flex-direction:column;gap:22px;}
+.pillar{display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--line);}
+.pillar:last-child{border-bottom:none;}
+.pillar-num{font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:var(--green-deep);width:44px;flex-shrink:0;}
+.pillar h4{font-size:18px;margin-bottom:6px;}
+.pillar p{color:var(--ink-soft);font-size:14.5px;line-height:1.6;}
+
+.webinar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.wcard{background:#fff;border-radius:20px;border:1px solid var(--line-soft);overflow:hidden;display:flex;flex-direction:column;transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .45s;cursor:pointer;}
+.wcard:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:transparent;}
+.wthumb{position:relative;aspect-ratio:16/10;display:flex;align-items:flex-end;padding:18px;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-deep) 100%);overflow:hidden;}
+.wthumb::before{content:"";position:absolute;inset:0;opacity:.5;background:radial-gradient(circle at 85% 15%, rgba(30,158,78,.55), transparent 55%);}
+.wthumb.past{background:linear-gradient(135deg,#3a4150 0%,#181c24 100%);}
+.wtag{position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.14);color:#fff;padding:6px 12px;border-radius:100px;backdrop-filter:blur(6px);}
+.wplay{position:absolute;top:14px;right:14px;z-index:2;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:transform .35s var(--ease),background .35s;}
+.wcard:hover .wplay{transform:scale(1.12);background:var(--green);}
+.wplay svg{width:14px;height:14px;fill:#fff;margin-left:2px;}
+.wbody{padding:22px 22px 24px;flex:1;display:flex;flex-direction:column;}
+.wdate{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--green-deep);letter-spacing:.03em;margin-bottom:10px;}
+.wbody h3{font-size:19px;line-height:1.28;margin-bottom:10px;}
+.wbody .wspeaker{font-size:13.5px;color:var(--ink-soft);margin-bottom:16px;}
+.wfoot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--line-soft);}
+.wprice{font-family:'Fraunces',serif;font-weight:600;font-size:17px;}
+.wlink{font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;color:var(--blue-deep);}
+.wlink svg{width:13px;height:13px;transition:transform .3s var(--ease);}
+.wcard:hover .wlink svg{transform:translateX(4px);}
+.empty-state{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--ink-soft);font-size:15px;border:1px dashed var(--line);border-radius:18px;}
+
+.section-toprow{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:56px;}
+.section-toprow .section-head{margin-bottom:0;}
+
+.features{background:var(--ink);color:#f7f8f4;}
+.features .eyebrow{color:#8fe0ac;}
+.features .eyebrow::before{background:#8fe0ac;}
+.features .section-head p{color:rgba(247,248,244,.65);}
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(247,248,244,.12);border-radius:22px;overflow:hidden;}
+.feature{background:var(--ink);padding:34px 26px;}
+.feature .ficon{width:42px;height:42px;border-radius:12px;background:rgba(30,158,78,.18);display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.feature .ficon svg{width:20px;height:20px;stroke:#8fe0ac;}
+.feature h4{font-family:'Fraunces',serif;font-size:18px;margin-bottom:8px;font-weight:600;}
+.feature p{font-size:13.8px;color:rgba(247,248,244,.6);line-height:1.6;}
+
+.cta{padding:110px 0;}
+.cta-box{background:linear-gradient(120deg,var(--blue) 0%,var(--blue-deep) 100%);border-radius:28px;padding:70px 60px;position:relative;overflow:hidden;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;color:#fff;}
+.cta-box::after{content:"";position:absolute;right:-10%;top:-30%;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(30,158,78,.4),transparent 70%);}
+.cta-box h2{font-size:clamp(28px,3.4vw,40px);color:#fff;position:relative;z-index:2;}
+.cta-box p{color:rgba(255,255,255,.75);margin-top:14px;font-size:15.5px;line-height:1.6;position:relative;z-index:2;max-width:420px;}
+.cta-actions{position:relative;z-index:2;display:flex;flex-direction:column;gap:14px;}
+.cta-box .btn-solid{background:#fff;color:var(--ink);}
+.cta-box .btn-solid::before{background:var(--green);}
+.cta-box .btn-solid:hover span{color:#fff;}
+.cta-box .btn-outline{border-color:rgba(255,255,255,.3);color:#fff;}
+.cta-box .btn-outline:hover{border-color:#fff;}
+
+footer{background:var(--paper-deep);border-top:1px solid var(--line);padding:60px 0 30px;}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px;}
+.foot-brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:600;font-size:19px;margin-bottom:14px;}
+.foot-col p{color:var(--ink-soft);font-size:14px;line-height:1.65;max-width:280px;}
+.foot-col h5{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px;}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.foot-col ul a{font-size:14.5px;color:var(--ink);transition:color .25s;cursor:pointer;}
+.foot-col ul a:hover{color:var(--green-deep);}
+.foot-bottom{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--ink-soft);}
+
+/* WEBINAR DETAIL VIEW */
+.wd-hero{padding:64px 0 40px;}
+.wd-hero-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:14px;}
+.tag-pill{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--mint);color:var(--green-deep);padding:7px 14px;border-radius:100px;}
+.status-pill{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:100px;background:var(--ink);color:#fff;display:flex;align-items:center;gap:7px;}
+.status-pill .dot{width:6px;height:6px;border-radius:50%;background:#8fe0ac;}
+.status-pill.is-past{background:#3a4150;}
+.status-pill.is-past .dot{background:#c9cede;}
+.wd-title{font-size:clamp(30px,4.4vw,46px);margin-bottom:18px;max-width:820px;}
+.meta-row{display:flex;gap:28px;flex-wrap:wrap;color:var(--ink-soft);font-size:14.5px;margin-bottom:8px;}
+.meta-row b{color:var(--ink);font-weight:600;}
+
+.layout{display:grid;grid-template-columns:1.55fr 1fr;gap:50px;align-items:start;padding-bottom:110px;}
+.player{background:#10151f;border-radius:20px;aspect-ratio:16/9;position:relative;overflow:hidden;margin-bottom:34px;box-shadow:var(--shadow);}
+.player video{width:100%;height:100%;object-fit:cover;}
+.locked-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:30px;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-deep) 100%);}
+.locked-overlay .lock-icon{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;}
+.locked-overlay .lock-icon svg{width:22px;height:22px;stroke:#fff;}
+.locked-overlay h3{color:#fff;font-size:20px;}
+.locked-overlay p{color:rgba(255,255,255,.72);font-size:14px;max-width:340px;}
+
+.block{margin-bottom:40px;}
+.block h2{font-size:22px;margin-bottom:16px;}
+.block p.body-text{color:var(--ink-soft);line-height:1.75;font-size:15.5px;}
+.agenda-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+.agenda-item{display:flex;gap:16px;align-items:flex-start;padding:16px 20px;border-bottom:1px solid var(--line);background:#fff;}
+.agenda-item:last-child{border-bottom:none;}
+.agenda-num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--green-deep);padding-top:2px;}
+.agenda-item p{font-size:14.5px;color:var(--ink);line-height:1.5;}
+
+.speaker-card{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line-soft);border-radius:16px;padding:18px;}
+.speaker-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:19px;}
+.speaker-card h4{font-size:15.5px;margin-bottom:3px;}
+.speaker-card span{font-size:13px;color:var(--ink-soft);}
+
+.reg-card{background:#fff;border:1px solid var(--line-soft);border-radius:22px;padding:28px;box-shadow:var(--shadow);position:sticky;top:100px;}
+.reg-price{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;}
+.reg-price .amt{font-family:'Fraunces',serif;font-size:34px;font-weight:600;}
+.reg-price .label{font-size:13px;color:var(--ink-soft);}
+.reg-note{font-size:13px;color:var(--ink-soft);margin-bottom:22px;}
+.reg-actions{display:flex;flex-direction:column;gap:12px;margin-bottom:22px;}
+.reg-included{display:flex;flex-direction:column;gap:12px;}
+.reg-included div{display:flex;align-items:center;gap:10px;font-size:13.8px;color:var(--ink-soft);}
+.reg-included svg{width:15px;height:15px;stroke:var(--green-deep);flex-shrink:0;}
+.unlocked-badge{display:flex;align-items:center;gap:10px;background:var(--mint);color:var(--green-deep);border-radius:14px;padding:14px 16px;font-size:13.8px;font-weight:600;margin-bottom:18px;}
+.unlocked-badge svg{width:16px;height:16px;}
+
+.related{padding:70px 0 100px;border-top:1px solid var(--line);}
+.related h3{font-size:22px;margin-bottom:26px;}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.rcard{display:block;background:#fff;border:1px solid var(--line-soft);border-radius:16px;padding:20px;transition:transform .35s var(--ease),box-shadow .35s var(--ease);cursor:pointer;}
+.rcard:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+.rcard .rdate{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--green-deep);margin-bottom:8px;}
+.rcard h4{font-size:16px;margin-bottom:6px;}
+.rcard span{font-size:13px;color:var(--ink-soft);}
+
+/* PAYMENT VIEW */
+.pay-wrap{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:150px 24px 90px;}
+.paycard{width:100%;max-width:460px;background:#fff;border-radius:24px;border:1px solid rgba(16,21,31,.08);box-shadow:var(--shadow);overflow:hidden;}
+.paycard-top{background:linear-gradient(120deg,var(--blue),var(--blue-deep));padding:28px 30px;color:#fff;}
+.paycard-top .brand-mini{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:600;font-size:16px;margin-bottom:18px;opacity:.9;}
+.paycard-top .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:6px;color:rgba(255,255,255,.8);}
+.paycard-top .eyebrow::before{background:rgba(255,255,255,.7);}
+.paycard-top h1{font-size:20px;line-height:1.35;color:#fff;}
+.paycard-body{padding:28px 30px 30px;}
+.payline{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px;}
+.payline span:first-child{color:var(--ink-soft);}
+.payline span:last-child{font-weight:600;}
+.paytotal{padding-top:16px;display:flex;justify-content:space-between;align-items:baseline;}
+.paytotal span:first-child{font-size:14.5px;color:var(--ink-soft);}
+.paytotal .amt{font-family:'Fraunces',serif;font-size:30px;font-weight:600;}
+.paymethods{display:flex;gap:8px;margin:20px 0;}
+.paymethod{flex:1;border:1.5px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center;font-size:12px;font-weight:600;color:var(--ink-soft);cursor:pointer;transition:.25s;}
+.paymethod.active{border-color:var(--green);color:var(--green-deep);background:var(--mint);}
+.pay-btn{width:100%;padding:16px;border-radius:100px;border:none;background:var(--ink);color:#fff;font-weight:700;font-size:15.5px;cursor:pointer;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .3s var(--ease);}
+.pay-btn:hover{transform:translateY(-2px);}
+.pay-btn:disabled{opacity:.75;cursor:default;transform:none;}
+.pay-spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;animation:payspin .7s linear infinite;display:none;}
+@keyframes payspin{to{transform:rotate(360deg);}}
+.secure-note{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:12px;color:var(--ink-soft);}
+.secure-note svg{width:12px;height:12px;}
+.pay-back{display:block;text-align:center;margin-top:18px;font-size:13px;color:var(--ink-soft);cursor:pointer;}
+.pay-back:hover{color:var(--ink);}
+.pay-success{display:none;flex-direction:column;align-items:center;text-align:center;padding:10px 6px 4px;}
+.pay-success .tick{width:56px;height:56px;border-radius:50%;background:var(--mint);display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.pay-success .tick svg{width:24px;height:24px;stroke:var(--green-deep);}
+.pay-success h2{font-size:19px;margin-bottom:8px;}
+.pay-success p{font-size:13.8px;color:var(--ink-soft);margin-bottom:22px;}
+
+@media(max-width:980px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-art{order:-1;max-width:280px;margin:0 auto;}
+  .about-grid{grid-template-columns:1fr;}
+  .webinar-grid{grid-template-columns:repeat(2,1fr);}
+  .feature-grid{grid-template-columns:repeat(2,1fr);}
+  .cta-box{grid-template-columns:1fr;padding:48px 30px;}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+  .layout{grid-template-columns:1fr;}
+  .reg-card{position:static;}
+  .related-grid{grid-template-columns:1fr;}
+}
+@media(max-width:640px){
+  .navlinks,.navcta .btn-outline{display:none;}
+  .menu-btn{display:block;}
+  .wrap{padding:0 20px;}
+  .hero{padding:140px 0 80px;}
+  .webinar-grid{grid-template-columns:1fr;}
+  .feature-grid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;}
+  .hero-stats{gap:22px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============== HEADER (shared across all views) ============== -->
+<header id="siteHeader">
+  <nav class="wrap">
+    <div class="brand" data-nav-home>
+      <span class="logo-mark">
+        <svg width="30" height="30" viewBox="0 0 200 210"><path fill="none" stroke="#2a4693" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" d="M62 40C48 40 40 58 40 88C40 130 55 170 68 170C78 170 78 148 90 148C102 148 102 170 112 170C126 170 148 130 148 88C148 55 132 40 112 48C98 54 88 46 76 46"></path><path fill="none" stroke="#1e9e4e" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" d="M96 150 L96 24 M96 24 L78 46 M96 24 L114 44"></path></svg>
+      </span>
+      Updental Academy
+    </div>
+    <div class="navlinks" id="navlinksHome">
+      <a data-nav-home data-scroll="home">Home</a>
+      <a data-nav-home data-scroll="about">About</a>
+      <a data-nav-home data-scroll="upcoming">Upcoming</a>
+      <a data-nav-home data-scroll="past">Recordings</a>
+      <a data-nav-home data-scroll="contact">Contact</a>
+    </div>
+    <div class="back-nav" id="backNav" style="display:none;" data-nav-home>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 8H3M7 4L3 8l4 4"/></svg> All webinars
+    </div>
+    <div class="navcta" id="navctaHome">
+      <a class="btn btn-outline btn-sm" data-nav-home data-scroll="upcoming"><span>This Sunday</span></a>
+      <a class="btn btn-wa btn-sm" href="https://wa.me/919930615554" target="_blank"><span>WhatsApp Us</span></a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<!-- ============== VIEW: HOME ============== -->
+<main id="view-home" class="view">
+
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow reveal">Live every Sunday · 6:00 PM IST</div>
+        <h1 class="reveal">Uplift your skill.<br>Upgrade your practice.<br><em>One Sunday at a time.</em></h1>
+        <p class="lede reveal">Updental Academy is a live dental education academy — weekly webinars taught by practising specialists, built for dentists who want clinical clarity, not another recorded course gathering dust.</p>
+        <div class="hero-ctas reveal">
+          <a class="btn btn-solid" data-scroll="upcoming"><span>See this Sunday's webinar</span></a>
+          <a class="btn btn-outline" data-scroll="past"><span>Browse recordings</span></a>
+        </div>
+        <div class="hero-stats reveal">
+          <div><div class="stat-num">40+</div><div class="stat-label">Sunday sessions run</div></div>
+          <div><div class="stat-num">1,800+</div><div class="stat-label">Dentists trained</div></div>
+          <div><div class="stat-num">4.8/5</div><div class="stat-label">Average rating</div></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="motif-wrap">
+          <div class="motif-ring"></div>
+          <svg viewBox="0 0 200 210">
+            <path class="motif-path motif-tooth" d="M62 40C48 40 40 58 40 88C40 130 55 170 68 170C78 170 78 148 90 148C102 148 102 170 112 170C126 170 148 130 148 88C148 55 132 40 112 48C98 54 88 46 76 46"></path>
+            <path class="motif-path motif-arrow" d="M96 150 L96 24 M96 24 L78 46 M96 24 L114 44"></path>
+          </svg>
+          <div class="motif-badge"><span class="dot"></span> Live now every Sunday</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sunday-strip"><div class="sunday-track" id="sundayTrack"></div></div>
+
+  <section class="about section-pad" id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">About Updental Academy</div>
+        <h2>Education built around one habit: showing up every Sunday.</h2>
+        <p>We're not another certificate mill. Updental Academy is a small, focused academy that runs one live webinar a week — practical, specialist-led, and small enough that your questions actually get answered.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <h3>Why "Sunday"?</h3>
+          <p>Weekdays belong to your chair-side hours. Sunday evening is when practising dentists actually have the headspace to learn — so that's the only day we teach. One session, one topic, one hour and a half. No sprawling multi-week courses to fall behind on.</p>
+        </div>
+        <div class="pillar-list">
+          <div class="pillar reveal"><div class="pillar-num">01</div><div><h4>Taught by practising specialists</h4><p>Every speaker is actively treating patients — not a full-time lecturer reading slides. You get judgment calls, not just theory.</p></div></div>
+          <div class="pillar reveal"><div class="pillar-num">02</div><div><h4>Watch live or on your own time</h4><p>Register once, join the Sunday live session, and if you miss it, your access carries over to the recording in Past Webinars.</p></div></div>
+          <div class="pillar reveal"><div class="pillar-num">03</div><div><h4>Priced per session, not per year</h4><p>No annual subscription lock-in. Pay for the topics that matter to your practice, skip the ones that don't.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad" id="upcoming">
+    <div class="wrap">
+      <div class="section-toprow">
+        <div class="section-head reveal">
+          <div class="eyebrow">Upcoming Webinar</div>
+          <h2>Reserve your seat for the next Sunday session.</h2>
+        </div>
+        <a class="btn btn-wa reveal" href="https://wa.me/919930615554?text=Hi%2C%20I%20want%20to%20register%20for%20the%20next%20Updental%20Academy%20webinar" target="_blank"><span>Ask on WhatsApp</span></a>
+      </div>
+      <div class="webinar-grid" id="upcomingGrid"></div>
+    </div>
+  </section>
+
+  <section class="section-pad" id="past" style="background:var(--paper-deep);">
+    <div class="wrap">
+      <div class="section-toprow">
+        <div class="section-head reveal">
+          <div class="eyebrow">Past Webinar Recordings</div>
+          <h2>Missed a Sunday? Unlock the recording anytime.</h2>
+        </div>
+      </div>
+      <div class="webinar-grid" id="pastGrid"></div>
+    </div>
+  </section>
+
+  <section class="features section-pad">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Why Updental</div>
+        <h2>Built for dentists who learn by doing, not by scrolling.</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature reveal">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <h4>90 minutes, weekly</h4><p>One focused topic every Sunday — no bloated multi-week syllabus to keep up with.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 4h16v12H8l-4 4V4z"/></svg></div>
+          <h4>Live Q&amp;A, every session</h4><p>Bring your own case. Speakers answer questions live, not through a comments section.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M5 13l4 4L19 7"/></svg></div>
+          <h4>Lifetime access to your recording</h4><p>Register once and your access to that session's recording never expires.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 01-9 8.5 8.5 8.5 0 01-8-11 8.38 8.38 0 018.5-5 8.5 8.5 0 018.5 7.5z"/></svg></div>
+          <h4>Register in one WhatsApp message</h4><p>No clunky sign-up forms — register and get reminders straight on WhatsApp.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="wrap">
+      <div class="cta-box reveal">
+        <div>
+          <h2>Have a question before you register?</h2>
+          <p>Message us on WhatsApp and we'll help you pick the right session, or set you up for this Sunday's live webinar.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-solid btn-block" href="https://wa.me/919930615554?text=Hi%2C%20I%20have%20a%20question%20about%20Updental%20Academy" target="_blank"><span>Chat on WhatsApp</span></a>
+          <a class="btn btn-outline btn-block" href="mailto:hello@updentalacademy.in"><span>Email hello@updentalacademy.in</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-col">
+          <div class="foot-brand">
+            <span class="logo-mark"><svg width="26" height="26" viewBox="0 0 200 210"><path fill="none" stroke="#2a4693" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" d="M62 40C48 40 40 58 40 88C40 130 55 170 68 170C78 170 78 148 90 148C102 148 102 170 112 170C126 170 148 130 148 88C148 55 132 40 112 48C98 54 88 46 76 46"></path><path fill="none" stroke="#1e9e4e" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" d="M96 150 L96 24 M96 24 L78 46 M96 24 L114 44"></path></svg></span>
+            Updental Academy
+          </div>
+          <p>A live online academy for dental education — one specialist-led webinar every Sunday.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Explore</h5>
+          <ul><li><a data-scroll="about">About</a></li><li><a data-scroll="upcoming">Upcoming Webinar</a></li><li><a data-scroll="past">Past Webinars</a></li></ul>
+        </div>
+        <div class="foot-col">
+          <h5>Support</h5>
+          <ul><li><a href="mailto:hello@updentalacademy.in">Email support</a></li><li><a href="https://wa.me/919930615554" target="_blank">WhatsApp</a></li></ul>
+        </div>
+        <div class="foot-col">
+          <h5>Legal</h5>
+          <ul><li><a>Privacy Policy</a></li><li><a>Terms of Service</a></li><li><a>Refund Policy</a></li></ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Updental Academy. All rights reserved.</span>
+        <span>Made for dentists who show up on Sundays.</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- ============== VIEW: WEBINAR DETAIL ============== -->
+<main id="view-webinar" class="view">
+  <section class="wd-hero">
+    <div class="wrap" id="wdHeroContent">
+      <div class="wd-hero-top reveal">
+        <span class="tag-pill" id="tagPill">—</span>
+        <span class="status-pill" id="statusPill"><span class="dot"></span> <span id="statusText">—</span></span>
+      </div>
+      <h1 class="wd-title reveal" id="wTitle">Loading webinar…</h1>
+      <div class="meta-row reveal">
+        <span id="wDate">—</span>
+        <span id="wDuration">—</span>
+        <span id="wSpeakerMeta">—</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap layout" id="wdLayout">
+    <div>
+      <div class="block reveal"><h2>About this session</h2><p class="body-text" id="wSummary">—</p></div>
+      <div class="block reveal"><h2>What we'll cover</h2><div class="agenda-list" id="agendaList"></div></div>
+      <div class="block reveal">
+        <h2>Your speaker</h2>
+        <div class="speaker-card">
+          <div class="speaker-avatar" id="speakerInitial">D</div>
+          <div><h4 id="speakerName">—</h4><span id="speakerTitle">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="reg-card reveal" id="regCard">
+        <div id="priceBlock">
+          <div class="reg-price"><span class="amt" id="priceAmt">₹0</span><span class="label">one-time, per session</span></div>
+          <div class="reg-note" id="regNote">—</div>
+        </div>
+        <div class="reg-actions" id="regActions">
+          <a class="btn btn-solid" id="registerBtn" target="_blank"><span>Register now</span></a>
+          <a class="btn btn-wa" id="registerWaBtn" target="_blank"><span>Book on WhatsApp</span></a>
+        </div>
+        <div class="reg-included">
+          <div><svg viewBox="0 0 16 16" fill="none" stroke-width="1.8"><path d="M3 8l3.5 3.5L13 5"/></svg> Live Q&amp;A with the speaker</div>
+          <div><svg viewBox="0 0 16 16" fill="none" stroke-width="1.8"><path d="M3 8l3.5 3.5L13 5"/></svg> Lifetime access to the recording</div>
+          <div><svg viewBox="0 0 16 16" fill="none" stroke-width="1.8"><path d="M3 8l3.5 3.5L13 5"/></svg> Reminders sent on WhatsApp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="related">
+    <div class="wrap">
+      <h3>More from Updental Academy</h3>
+      <div class="related-grid" id="relatedGrid"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ==========================================================================
+   UPDENTAL ACADEMY — WEBINAR DATA
+   Add a new Sunday session by copying an object below. Nothing else needs
+   touching — "date" alone decides whether it's Upcoming or Past.
+   ========================================================================== */
+const UPDENTAL_WEBINARS = [
+  {
+    id: "endo-relook-2026-08",
+    title: "Endodontics Re-Look: Predictable Root Canal Outcomes",
+    speaker: "Dr. Aakash Rane",
+    speakerTitle: "MDS Conservative Dentistry & Endodontics",
+    date: "2026-08-23T18:00:00+05:30",
+    durationMins: 90,
+    priceINR: 499,
+    tag: "Clinical",
+    summary: "A working session on isolating variables that actually move your RCT success rate — access, negotiation, obturation, and the judgment calls in between.",
+    agenda: [
+      "Reading the canal before you open it: case selection & imaging",
+      "Access cavity design that protects your instruments",
+      "Negotiation & glide path — where most cases go wrong",
+      "Obturation techniques compared, with case walkthroughs",
+      "Live Q&A with case submissions from attendees"
+    ],
+  },
+  {
+    id: "smile-design-2026-08",
+    title: "Digital Smile Design for the Everyday Practice",
+    speaker: "Dr. Naina Kulkarni",
+    speakerTitle: "MDS Prosthodontics, Cosmetic Dentistry",
+    date: "2026-08-30T18:00:00+05:30",
+    durationMins: 75,
+    priceINR: 599,
+    tag: "Aesthetic",
+    summary: "No expensive software required — a practical DSD workflow you can run on a phone camera and free tools, from photography to patient conversation.",
+    agenda: [
+      "Photography protocol that removes guesswork",
+      "Facial & dental proportion analysis, simplified",
+      "Mock-ups and patient communication that close cases",
+      "Free & low-cost DSD tool stack",
+      "Live Q&A"
+    ],
+  },
+  {
+    id: "perio-basics-2026-09",
+    title: "Periodontics for the General Practitioner",
+    speaker: "Dr. Rohan Deshpande",
+    speakerTitle: "MDS Periodontology & Implantology",
+    date: "2026-09-06T18:00:00+05:30",
+    durationMins: 90,
+    priceINR: 499,
+    tag: "Clinical",
+    summary: "Where to refer, where to treat, and how to build a maintenance protocol your patients actually follow.",
+    agenda: [
+      "Staging & grading, applied chairside",
+      "Scaling & root planing — technique refresh",
+      "When to refer to a periodontist",
+      "Building a recall system that sticks",
+      "Live Q&A"
+    ],
+  },
+  {
+    id: "ortho-aligners-2026-07",
+    title: "Clear Aligners: Case Selection That Doesn't Backfire",
+    speaker: "Dr. Meera Iyer",
+    speakerTitle: "MDS Orthodontics & Dentofacial Orthopaedics",
+    date: "2026-07-19T18:00:00+05:30",
+    durationMins: 85,
+    priceINR: 549,
+    tag: "Ortho",
+    summary: "A blunt look at which malocclusions belong in aligners, which don't, and how to set patient expectations before you start.",
+    agenda: [
+      "Diagnostic records that actually predict outcome",
+      "Cases that succeed vs cases that relapse",
+      "Attachment & IPR planning basics",
+      "Setting expectations in the first consult",
+      "Recorded Q&A from the live session"
+    ],
+  },
+  {
+    id: "pedo-behaviour-2026-07",
+    title: "Behaviour Management in Paediatric Dentistry",
+    speaker: "Dr. Sanika Joshi",
+    speakerTitle: "MDS Paediatric & Preventive Dentistry",
+    date: "2026-07-12T18:00:00+05:30",
+    durationMins: 70,
+    priceINR: 399,
+    tag: "Paediatric",
+    summary: "Non-pharmacological techniques that turn a screaming 6-year-old into a cooperative patient — with real chairside footage.",
+    agenda: [
+      "Reading a child's anxiety before it escalates",
+      "Tell-show-do, done right",
+      "When to involve the parent, when not to",
+      "Handling the case that's going sideways",
+      "Recorded Q&A from the live session"
+    ],
+  },
+  {
+    id: "practice-growth-2026-06",
+    title: "Building a Recall System That Actually Fills Your Chair",
+    speaker: "Dr. Aakash Rane",
+    speakerTitle: "MDS, Founder — Updental Academy",
+    date: "2026-06-28T18:00:00+05:30",
+    durationMins: 60,
+    priceINR: 349,
+    tag: "Practice Growth",
+    summary: "The unglamorous system behind a fully booked calendar — recall, reviews, and referrals, explained as a repeatable weekly routine.",
+    agenda: [
+      "Why most recall systems fail after month two",
+      "The weekly routine that keeps your chair full",
+      "Getting reviews without sounding needy",
+      "Turning patients into referral sources",
+      "Recorded Q&A from the live session"
+    ],
+  }
+];
+
+/* Single WhatsApp number used sitewide for all registrations / enquiries */
+const WHATSAPP_NUMBER = "919930615554";
+
+const UpdentalData = {
+  all() { return UPDENTAL_WEBINARS.slice(); },
+  byId(id) { return UPDENTAL_WEBINARS.find(w => w.id === id); },
+  isPast(w) { return new Date(w.date).getTime() < Date.now(); },
+  upcoming() { return UPDENTAL_WEBINARS.filter(w => !UpdentalData.isPast(w)).sort((a,b)=> new Date(a.date)-new Date(b.date)); },
+  past() { return UPDENTAL_WEBINARS.filter(w => UpdentalData.isPast(w)).sort((a,b)=> new Date(b.date)-new Date(a.date)); }
+};
+
+/* ==========================================================================
+   ROUTER — one file, two views, all navigation via location.hash
+   #/                    -> home
+   #/webinar/<id>        -> webinar detail (upcoming or past)
+   ========================================================================== */
+var GSAP_OK = !!(window.gsap && window.ScrollTrigger);
+if (GSAP_OK) { gsap.registerPlugin(ScrollTrigger); }
+
+function parseHash(){
+  const h = location.hash.replace(/^#\/?/, '');
+  const parts = h.split('/').filter(Boolean);
+  if(parts[0] === 'webinar') return { view:'webinar', id: decodeURIComponent(parts[1]||'') };
+  return { view:'home' };
+}
+
+function goTo(hash){ location.hash = hash; }
+
+function router(){
+  const { view, id } = parseHash();
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('is-active'));
+
+  const backNav = document.getElementById('backNav');
+  const navlinksHome = document.getElementById('navlinksHome');
+  const navctaHome = document.getElementById('navctaHome');
+
+  if(view === 'webinar'){
+    document.getElementById('view-webinar').classList.add('is-active');
+    backNav.style.display = 'flex'; navlinksHome.style.display = 'none'; navctaHome.style.display = 'none';
+    renderWebinar(id);
+  } else {
+    document.getElementById('view-home').classList.add('is-active');
+    backNav.style.display = 'none'; navlinksHome.style.display = 'flex'; navctaHome.style.display = 'flex';
+    renderHome();
+  }
+  window.scrollTo(0,0);
+  runReveals();
+}
+window.addEventListener('hashchange', router);
+window.addEventListener('DOMContentLoaded', router);
+
+/* Click delegation: any element with data-nav-home / data-scroll routes without page reload */
+document.addEventListener('click', function(e){
+  const homeEl = e.target.closest('[data-nav-home]');
+  const scrollEl = e.target.closest('[data-scroll]');
+  if(homeEl || scrollEl){
+    e.preventDefault();
+    const target = scrollEl ? scrollEl.getAttribute('data-scroll') : null;
+    if(location.hash && location.hash !== '#/' && location.hash !== ''){
+      location.hash = '#/';
+      setTimeout(()=>{ if(target && target !== 'home'){ const el=document.getElementById(target); if(el) el.scrollIntoView({behavior:'smooth'}); } }, 60);
+    } else if(target && target !== 'home'){
+      const el = document.getElementById(target);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }
+    document.querySelector('.navlinks').style.display = window.innerWidth <= 640 ? 'none' : 'flex';
+  }
+});
+
+/* Header on scroll */
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 30));
+
+function runReveals(){
+  var els = document.querySelectorAll('.view.is-active .reveal');
+  if (GSAP_OK) {
+    els.forEach((el,i) => {
+      gsap.fromTo(el, {opacity:0,y:24}, {
+        opacity:1, y:0, duration:.8, ease:'power3.out', delay:(i%8)*0.05
+      });
+    });
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  } else {
+    /* Fallback if the GSAP CDN didn't load: reveal content immediately
+       rather than leaving it invisible. */
+    els.forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
+  }
+}
+
+/* ---------- Sunday ticking strip ---------- */
+(function(){
+  const track = document.getElementById('sundayTrack');
+  track.innerHTML = Array(2).fill().map(()=> `
+    <span>Every <b>Sunday</b> · 6:00 PM IST</span>
+    <span>Live specialist-led session</span>
+    <span>Recording unlocked after registration</span>
+    <span>Next seat closing soon</span>
+  `).join('');
+})();
+
+/* Hero draw-on-load for tooth-arrow motif (runs once) */
+window.addEventListener('DOMContentLoaded', ()=>{
+  document.querySelectorAll('.motif-path').forEach(path=>{
+    if (GSAP_OK) {
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+      gsap.to(path,{strokeDashoffset:0,duration:1.8,ease:'power2.inOut',delay:.3});
+    }
+    /* else: leave the motif as a plain static line drawing — no animation, but visible */
+  });
+});
+
+/* ---------- HOME view render ---------- */
+function fmtDate(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-IN',{weekday:'short', day:'2-digit', month:'short', year:'numeric'}) +
+    ' · ' + d.toLocaleTimeString('en-IN',{hour:'2-digit', minute:'2-digit'});
+}
+
+function cardHTML(w, isPast){
+  return `
+  <a class="wcard" href="#/webinar/${encodeURIComponent(w.id)}">
+    <div class="wthumb ${isPast ? 'past':''}">
+      <span class="wtag">${w.tag}</span>
+      <div class="wplay"><svg viewBox="0 0 16 16"><path d="M3 1l12 7-12 7z"></path></svg></div>
+    </div>
+    <div class="wbody">
+      <div class="wdate">${isPast ? 'Recorded' : 'Live'} · ${fmtDate(w.date)}</div>
+      <h3>${w.title}</h3>
+      <div class="wspeaker">${w.speaker} — ${w.speakerTitle}</div>
+      <div class="wfoot">
+        <div class="wprice">₹${w.priceINR}</div>
+        <div class="wlink">${isPast ? 'Watch recording' : 'Register now'} <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+      </div>
+    </div>
+  </a>`;
+}
+
+function renderHome(){
+  const upcoming = UpdentalData.upcoming();
+  const past = UpdentalData.past();
+  document.getElementById('upcomingGrid').innerHTML = upcoming.length
+    ? upcoming.map(w => cardHTML(w,false)).join('')
+    : `<div class="empty-state">No live session scheduled this week — check back soon or browse past recordings.</div>`;
+  document.getElementById('pastGrid').innerHTML = past.length
+    ? past.map(w => cardHTML(w,true)).join('')
+    : `<div class="empty-state">Recordings will appear here after each Sunday session.</div>`;
+}
+
+/* ---------- WEBINAR DETAIL view render ---------- */
+function renderWebinar(id){
+  const w = id ? UpdentalData.byId(id) : null;
+
+  if(!w){
+    document.getElementById('wdHeroContent').innerHTML =
+      `<div class="reveal" style="padding:40px 0;">
+         <div class="eyebrow">Not found</div>
+         <h1 class="wd-title" style="margin-top:16px;">We couldn't find that webinar</h1>
+         <p style="color:var(--ink-soft);margin-top:14px;">It may have been renamed or removed. <a data-nav-home style="color:var(--blue-deep);font-weight:600;cursor:pointer;">Go back to all webinars →</a></p>
+       </div>`;
+    document.getElementById('wdLayout').style.display='none';
+    document.querySelector('#view-webinar .related').style.display='none';
+    return;
+  }
+  document.getElementById('wdLayout').style.display='grid';
+  document.querySelector('#view-webinar .related').style.display='block';
+
+  const isPast = UpdentalData.isPast(w);
+
+  document.title = w.title + ' — Updental Academy';
+  document.getElementById('tagPill').textContent = w.tag;
+
+  const statusPill = document.getElementById('statusPill');
+  const statusText = document.getElementById('statusText');
+  statusPill.classList.toggle('is-past', isPast);
+  statusText.textContent = isPast ? 'Recorded session' : 'Upcoming — live this Sunday';
+
+  document.getElementById('wTitle').textContent = w.title;
+  const d = new Date(w.date);
+  document.getElementById('wDate').innerHTML = '<b>' + d.toLocaleDateString('en-IN',{weekday:'long', day:'2-digit', month:'long', year:'numeric'}) + '</b> · ' + d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}) + ' IST';
+  document.getElementById('wDuration').innerHTML = '<b>' + w.durationMins + ' min</b> session';
+  document.getElementById('wSpeakerMeta').innerHTML = 'Hosted by <b>' + w.speaker + '</b>';
+  document.getElementById('wSummary').textContent = w.summary;
+
+  document.getElementById('agendaList').innerHTML = w.agenda.map((a,i) => `
+    <div class="agenda-item"><div class="agenda-num">${String(i+1).padStart(2,'0')}</div><p>${a}</p></div>
+  `).join('');
+
+  document.getElementById('speakerInitial').textContent = w.speaker.replace('Dr. ','').charAt(0);
+  document.getElementById('speakerName').textContent = w.speaker;
+  document.getElementById('speakerTitle').textContent = w.speakerTitle;
+
+  document.getElementById('priceAmt').textContent = '₹' + w.priceINR;
+  document.getElementById('regNote').textContent = isPast
+    ? 'Book now to get this recording and speak to our team on WhatsApp.'
+    : 'Registration includes live access this Sunday. Confirm your seat on WhatsApp.';
+
+  /* Both buttons redirect straight to WhatsApp — no payment step, no video gating */
+  const registerText = encodeURIComponent(`Hi, I want to register for "${w.title}" on Updental Academy (₹${w.priceINR}). Please confirm my seat.`);
+  const bookText = encodeURIComponent(`Hi, I'd like to book "${w.title}" on Updental Academy (₹${w.priceINR}).`);
+  document.getElementById('registerBtn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${registerText}`;
+  document.getElementById('registerWaBtn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${bookText}`;
+
+  const related = UpdentalData.all().filter(x => x.id !== w.id).slice(0,3);
+  document.getElementById('relatedGrid').innerHTML = related.map(r => {
+    const rd = new Date(r.date);
+    return `<a class="rcard" href="#/webinar/${encodeURIComponent(r.id)}">
+      <div class="rdate">${UpdentalData.isPast(r) ? 'Recorded' : 'Live'} · ${rd.toLocaleDateString('en-IN',{day:'2-digit',month:'short'})}</div>
+      <h4>${r.title}</h4>
+      <span>${r.speaker}</span>
+    </a>`;
+  }).join('');
+}
+
+/* mobile menu toggle */
+document.getElementById('menuBtn').addEventListener('click', ()=>{
+  const links = document.querySelector('.navlinks');
+  const open = links.style.display === 'flex';
+  links.style.cssText = open ? '' : 'display:flex;position:fixed;top:64px;left:20px;right:20px;background:#fff;flex-direction:column;gap:0;padding:10px 20px;border-radius:16px;box-shadow:0 20px 50px -20px rgba(16,21,31,.35);border:1px solid var(--line);z-index:99;';
+  document.querySelectorAll('.navlinks a').forEach(a=> a.style.padding = open ? '' : '14px 0');
+});
+</script>
+</body>
+</html>
